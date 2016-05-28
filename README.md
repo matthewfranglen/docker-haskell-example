@@ -47,3 +47,8 @@ This starts the Docker container. This requires that you build the image first.
 #### bin/stop
 
 This stops the Docker container.
+
+#### bin/logs
+
+This shows the logs for the Docker container. This will work after the
+container has exited but removing the container will remove the logs.
