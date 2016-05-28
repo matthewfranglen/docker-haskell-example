@@ -8,7 +8,7 @@ BIN_DIRECTORY=`dirname "${COMMAND}"`
 
 main () {
     check_environment
-    build_image
+    stop_container
 }
 
 check_environment () {
@@ -19,7 +19,7 @@ check_environment () {
     fi
 }
 
-build_image () {
+stop_container () {
     (
         cd "${ROOT_DIRECTORY}"
 

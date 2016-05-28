@@ -1,0 +1,49 @@
+#!/bin/bash
+
+set -euo pipefail
+
+COMMAND=`readlink -f "${0}"`
+BIN_DIRECTORY=`dirname "${COMMAND}"`
+. "${BIN_DIRECTORY}/lib"
+
+main () {
+    check_environment
+    remove_images
+}
+
+check_environment () {
+    if no_docker_command
+    then
+        error_missing_docker
+        exit 1
+    fi
+}
+
+remove_images () {
+    (
+        cd "${ROOT_DIRECTORY}"
+
+        local name=`get_project_name`
+
+        echo "Removing ${name}"
+
+        local containers=`docker ps --all | awk ' $2 ~ /^'${name}'/ { print $1 } '`
+
+        if [ "${containers}" ]
+        then
+            docker rm ${containers[@]}
+        fi
+
+        local images=`docker images --quiet "${name}"`
+
+        if [ "${images}" ]
+        then
+            docker rmi ${images[@]}
+        else
+            echo "No images to remove" >&2
+            exit 1
+        fi
+    )
+}
+
+main
