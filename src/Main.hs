@@ -5,5 +5,23 @@ module Main
     )
     where
 
+import Web.Slack (runBot, SlackBot, Message)
+import Web.Slack.Config (SlackConfig)
+import Web.Slack.Message (sendMessage)
+
 main :: IO ()
-main = putStrLn "hello world!"
+main = do
+    token <- readToken
+    runBot (makeConfig token) echoBot ()
+
+readToken :: IO String
+readToken = do
+    token <- readFile "token"
+    return $ lines token !! 0
+
+makeConfig :: String -> SlackConfig
+makeConfig token = SlackConfig { _slackApiToken = token }
+
+echoBot :: SlackBot ()
+echoBot (Message cid _ msg _ _ _) = sendMessage cid msg
+echoBot _                         = return ()
