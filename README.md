@@ -5,6 +5,10 @@ This is a template project for using a specific version of Haskell via Docker.
 This allows you to use different versions of core as if you were using a
 virtualenv or similar.
 
+When writing this I found that
+[stack](http://docs.haskellstack.org/en/stable/README/) has the same objective
+so you may wish to consider using that.
+
 ### Layout
 
 Application code goes in `src` and the entry point is the `main` method of `src/Main.hs`.
