@@ -3,9 +3,9 @@
 
 name:                example-docker-project
 version:             0.1.0.0
-synopsis:            Example Haskell project
+synopsis:            Slack Bot for Maul
 -- description:         
-license:             GPL-3
+license:             AllRightsReserved
 license-file:        LICENSE
 author:              Matthew Franglen
 maintainer:          matthew@franglen.org

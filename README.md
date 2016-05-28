@@ -1,13 +1,7 @@
-Example Haskell Project
------------------------
+Maul Slack Bot
+--------------
 
-This is a template project for using a specific version of Haskell via Docker.
-This allows you to use different versions of core as if you were using a
-virtualenv or similar.
-
-When writing this I found that
-[stack](http://docs.haskellstack.org/en/stable/README/) has the same objective
-so you may wish to consider using that.
+This is the slack bot for maul.
 
 ### Layout
 
@@ -19,20 +13,14 @@ There are scripts to build and run the code in the `bin` folder.
 
 ### Usage
 
-Just copy this folder and update the `example-docker-project.cabal` file. You
-should rename it to better match your project.
-
-To use a specific version of GHC edit the `Dockerfile`. The first line
-indicates the version of haskell that will be used. You can review the
-[tags list](https://hub.docker.com/_/haskell/tags/) to see what versions are
-available. At the time of writing the following versions were available:
-
- * 7.10.3
- * 7.10.2
- * 7.10.1
- * 7.8.4
-
-### Commands
+```bash
+➜ bin/clean
+➜ bin/build
+➜ bin/start
+➜ bin/logs
+...
+➜ bin/stop
+```
 
 #### bin/build
 

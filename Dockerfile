@@ -1,6 +1,6 @@
 FROM haskell:7.10
 
-ENV PROJECT_NAME "example-docker-project"
+ENV PROJECT_NAME "maul-docker-slack-bot"
 
 WORKDIR /opt/server
 
