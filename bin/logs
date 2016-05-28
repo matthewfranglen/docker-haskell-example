@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -euo pipefail
+
+COMMAND=`readlink -f "${0}"`
+BIN_DIRECTORY=`dirname "${COMMAND}"`
+. "${BIN_DIRECTORY}/lib"
+
+main () {
+    check_environment
+    view_logs
+}
+
+check_environment () {
+    if no_docker_command
+    then
+        error_missing_docker
+        exit 1
+    fi
+}
+
+view_logs () {
+    (
+        cd "${ROOT_DIRECTORY}"
+
+        local name=`get_project_name`
+
+        docker logs "${name}"
+    )
+}
+
+main
