@@ -5,8 +5,8 @@ module Main
     )
     where
 
-import Web.Slack (runBot, SlackBot, Message)
-import Web.Slack.Config (SlackConfig)
+import Web.Slack (runBot, SlackBot, Event( Message ) )
+import Web.Slack.Config
 import Web.Slack.Message (sendMessage)
 
 main :: IO ()

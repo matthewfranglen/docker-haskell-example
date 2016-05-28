@@ -1,15 +1,15 @@
 ROOT_DIRECTORY=`dirname "${BIN_DIRECTORY}"`
 CABAL_FILE=("${ROOT_DIRECTORY}"/*.cabal)
 
-no_docker_command () {
-    ! which docker >/dev/null
+no_stack_command () {
+    ! which stack >/dev/null
 }
 
-error_missing_docker () {
+error_missing_stack () {
     cat <<EOF >&2
-The docker command is not available.
+The stack command is not available.
 Please install it or add it to the PATH if it is already installed.
-See https://www.docker.com for installation instructions.
+See http://docs.haskellstack.org/en/stable/README/ for installation instructions.
 EOF
 }
 

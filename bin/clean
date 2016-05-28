@@ -12,9 +12,9 @@ main () {
 }
 
 check_environment () {
-    if no_docker_command
+    if no_stack_command
     then
-        error_missing_docker
+        error_missing_stack
         exit 1
     fi
 }
@@ -27,22 +27,7 @@ remove_images () {
 
         echo "Removing ${name}"
 
-        local containers=`docker ps --all | awk ' $2 ~ /^'${name}'/ { print $1 } '`
-
-        if [ "${containers}" ]
-        then
-            docker rm ${containers[@]}
-        fi
-
-        local images=`docker images --quiet "${name}"`
-
-        if [ "${images}" ]
-        then
-            docker rmi ${images[@]}
-        else
-            echo "No images to remove" >&2
-            exit 1
-        fi
+        stack clean
     )
 }
 
