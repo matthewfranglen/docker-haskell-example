@@ -12,10 +12,13 @@ COPY ./${PROJECT_NAME}.cabal /opt/server/${PROJECT_NAME}.cabal
 # Docker will cache this command as a layer, freeing us up to
 # modify source code without re-installing dependencies
 # (unless the .cabal file changes!)
-RUN cabal install --only-dependencies -j4
+RUN stack init
+RUN stack setup
 
 # Add and Install Application Code
 COPY . /opt/server
-RUN cabal install
 
-CMD dist/build/${PROJECT_NAME}/${PROJECT_NAME}
+RUN stack setup
+RUN stack build
+
+CMD stack exec ${PROJECT_NAME}
