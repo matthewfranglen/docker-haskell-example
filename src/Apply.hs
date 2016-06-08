@@ -8,5 +8,9 @@ module Apply
 import Evaluate (Expression(..))
 
 apply :: Expression -> Int -> Int
-apply (Constant n) _ = n
-apply _ _ = 0
+apply (Constant x) _   = x
+apply CurrentValue x   = x
+apply (Add x y) v      = (apply x v) + (apply y v)
+apply (Subtract x y) v = (apply x v) - (apply y v)
+apply (Multiply x y) v = (apply x v) * (apply y v)
+apply (Divide x y) v   = (apply x v) `div` (apply y v)
