@@ -17,7 +17,7 @@ import Apply (apply)
 
 import Control.Lens
 
-data State = State { _value :: Int }
+data State = State { _value :: Integer }
 
 makeLenses ''State
 

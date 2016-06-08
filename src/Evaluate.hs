@@ -9,7 +9,7 @@ module Evaluate
 import Text.Read (readMaybe)
 
 data Expression = CurrentValue
-                | Constant Int
+                | Constant Integer
                 | Add Expression Expression
                 | Subtract Expression Expression
                 | Multiply Expression Expression
@@ -19,11 +19,11 @@ evaluate :: String -> Expression
 evaluate = parse . tokenize
 
 data Token = TVerb String
-           | TConstant Int
+           | TConstant Integer
 
 tokenize :: String -> [Token]
 tokenize xs = map f $ words xs
-    where f xs' = case readMaybe xs' :: Maybe Int of
+    where f xs' = case readMaybe xs' :: Maybe Integer of
                     Just i  -> TConstant i
                     Nothing -> TVerb xs'
 

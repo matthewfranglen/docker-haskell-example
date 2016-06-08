@@ -7,7 +7,7 @@ module Apply
 
 import Evaluate (Expression(..))
 
-apply :: Expression -> Int -> Int
+apply :: Expression -> Integer -> Integer
 apply (Constant x) _   = x
 apply CurrentValue x   = x
 apply (Add x y) v      = (apply x v) + (apply y v)
