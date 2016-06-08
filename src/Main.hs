@@ -1,18 +1,31 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TemplateHaskell #-}
 module Main
     (
         main
     )
     where
 
-import Web.Slack (runBot, SlackBot, Event( Message ) )
+import qualified Data.Text as T (pack, unpack)
+
+import Web.Slack (runBot, SlackBot, Event( Message ), userState )
 import Web.Slack.Config
 import Web.Slack.Message (sendMessage)
+
+import Evaluate (evaluate)
+import Apply (apply)
+
+import Control.Lens
+
+data State = State { _value :: Int }
+
+makeLenses ''State
 
 main :: IO ()
 main = do
     token <- readToken
-    runBot (makeConfig token) echoBot ()
+    runBot (makeConfig token) echoBot startState
+    where startState = State 0
 
 readToken :: IO String
 readToken = do
@@ -22,6 +35,11 @@ readToken = do
 makeConfig :: String -> SlackConfig
 makeConfig token = SlackConfig { _slackApiToken = token }
 
-echoBot :: SlackBot ()
-echoBot (Message cid _ msg _ _ _) = sendMessage cid msg
+echoBot :: SlackBot State
+echoBot (Message cid _ msg _ _ _) = do
+    let expr = evaluate $ T.unpack msg
+    num <- userState . value <%= apply expr
+    let response = T.pack . show $ num
+    sendMessage cid response
+
 echoBot _                         = return ()
