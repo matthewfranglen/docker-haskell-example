@@ -8,4 +8,5 @@ module Apply
 import Evaluate (Expression(..))
 
 apply :: Expression -> Int -> Int
-apply _ = undefined
+apply (Constant n) _ = n
+apply _ _ = 0

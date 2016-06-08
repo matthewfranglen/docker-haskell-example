@@ -13,4 +13,4 @@ data Expression = Constant Int
                 | Divide Expression Expression
 
 evaluate :: String -> Expression
-evaluate _ = undefined
+evaluate _ = Constant 1
