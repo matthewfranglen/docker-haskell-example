@@ -14,12 +14,9 @@ import Web.Slack.Message (sendMessage)
 
 import Evaluate (evaluate)
 import Apply (apply)
+import State (State(..), value)
 
 import Control.Lens
-
-data State = State { _value :: Integer }
-
-makeLenses ''State
 
 main :: IO ()
 main = do
