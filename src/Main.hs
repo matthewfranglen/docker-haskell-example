@@ -33,10 +33,10 @@ makeConfig token = SlackConfig { _slackApiToken = token }
 echoBot :: SlackBot State
 echoBot (Message cid _ msg _ _ _) = do
     let expr = evaluate $ T.unpack msg
-    num <- userState . value <%= case expr of
-                                    Left _  -> \_ -> 0
-                                    Right x -> apply x
-    let response = T.pack . show $ num
-    sendMessage cid response
+    case expr of
+        Left  err   -> sendMessage cid $ T.pack err
+        Right expr' -> do
+            num <- userState . value <%= apply expr'
+            sendMessage cid $ T.pack $ show num
 
 echoBot _                         = return ()
